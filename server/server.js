@@ -1,13 +1,14 @@
 const fs = require('fs');
 const app = require('express')();
 const http = require('http').createServer(app);
+const path = require('path');
 
 const localhostRegex = /http:\/\/localhost/
 const io = require('socket.io')(http, {
   cors: { origin: localhostRegex }
 });
 
-const PORT = 4000;
+const PORT = 3001;
 const DATA_FILE = __dirname + '/order-data.json';
 
 // Initialize order data.
@@ -23,7 +24,7 @@ orders.forEach(order => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
 app.get('/health', (req, res) => {
